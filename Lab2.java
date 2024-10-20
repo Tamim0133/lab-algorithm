@@ -4,28 +4,28 @@ import java.util.*;
 
 class Graph{
 
-    private ArrayList<ArrayList<Integer>> adj;
+    public  ArrayList<ArrayList<Integer>> adj;
 
-    private int nodes;
-    private int edges;
+    public  int nodes;
+    public  int edges;
 
-    private boolean loopExists; // loop check using DFS
+    public boolean loopExists; // loop check using DFS
 
-    private boolean used[]; // visited array for BFS
+    public  boolean used[]; // visited array for BFS
 
-    private ArrayList<Integer> color = new ArrayList<>();// visited array for DFS
+    public  ArrayList<Integer> color = new ArrayList<>();// visited array for DFS
 
-    private int d[]; // distance array for BFS
-    private int p[]; // parent array for BFS
-    private int p1[]; // parent array for DFS
+    public  int d[]; // distance array for BFS
+    public  int p[]; // parent array for BFS
+    public  int p1[]; // parent array for DFS
 
-    private int dd[]; // discovery time for DFS
-    private int ff[]; // finishing time for DFS
+    public  int dd[]; // discovery time for DFS
+    public  int ff[]; // finishing time for DFS
 
-    private int time;
+    public int time;
 
-    private ArrayList<Integer> toposort = new ArrayList<>();
-    private ArrayList<Integer> visited3 = new ArrayList<>();
+    public ArrayList<Integer> toposort = new ArrayList<>();
+    public  ArrayList<Integer> visited3 = new ArrayList<>();
 
     /*--------------------------------------
             Graph Constructor using file
@@ -186,7 +186,7 @@ class Graph{
     void DFS(int v)
     {
         System.out.print(v + " ");
-        visited3.set(v, 1); // gray
+        color.set(v, 1); // gray
         dd[v] = ++time;
         for(Integer child : adj.get(v))
         {
@@ -199,7 +199,7 @@ class Graph{
                 loopExists = true;
             }
         }
-        visited3.set(v, 2); // black
+        color.set(v, 2); // black
         ff[v] = ++time;
 
     }
@@ -213,6 +213,7 @@ class Graph{
             if (visited3.get(i) == 0)
                 calldfs(i);
         }
+
         List<Integer> toposort2 = new ArrayList<>();
         for (int i = toposort.size() - 1; i >= 0; i--) {
             toposort2.add(toposort.get(i));
@@ -234,6 +235,7 @@ class Graph{
 
 
 }
+
 public class Lab2{
     public static void main(String args[]){
         String filename = "input.txt";
@@ -241,12 +243,14 @@ public class Lab2{
         g.printAdjList();
 
         System.out.println("\nPerforming DFS starting from vertex 5:");
-        g.DFS(5);
+        g.DFS(1);
+        // g.DFS(5);
         System.out.println();
 
         System.out.println("\nPerforming Topological Sort:");
         List<Integer> topoOrder = g.topologicalSort();
         System.out.println("Topological Sort order: " + topoOrder);
-
+        
+        System.out.println("Loop Exists : " + g.loopExists);
     }
 }
